@@ -55,6 +55,11 @@
 	/// Extra fluff added to the role explanation in class selection.
 	var/extra_context
 
+	/// Virtues this subclass cannot take.
+	var/list/virtue_restrictions
+	/// Vices this subclass cannot take.
+	var/list/vice_restrictions
+
 	/// Set to FALSE to skip apply_character_post_equipment() which applies virtue, flaw, loadout
 	var/applies_post_equipment = TRUE
 
@@ -80,6 +85,8 @@
 			new horse(TU)
 
 	for(var/trait in traits_applied)
+		if(trait in H.dna.species.banned_traits)
+			continue
 		ADD_TRAIT(H, trait, ADVENTURER_TRAIT)
 
 	if(noble_income)
