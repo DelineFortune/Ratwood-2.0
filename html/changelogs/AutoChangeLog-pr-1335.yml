@@ -1,4 +1,0 @@
-author: "Xander3359"
-delete-after: True
-changes:
-  - config: "Sets changelog to update daily instead of weekly"
