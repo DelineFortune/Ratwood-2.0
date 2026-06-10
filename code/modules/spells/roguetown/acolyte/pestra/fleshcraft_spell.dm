@@ -788,3 +788,5 @@
 	O.vars[var_name] = size_map[new_size]
 	H.update_body()
 	return TRUE
+
+

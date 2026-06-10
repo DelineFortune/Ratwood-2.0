@@ -55,6 +55,7 @@
 	associated_skill = /datum/skill/misc/medicine
 	miracle = FALSE
 	devotion_cost = 0 //Doctors are not clerics
+	
 /obj/effect/proc_holder/spell/invoked/attach_bodypart
 	name = "Bodypart Miracle"
 	desc = "Attach all limbs and organs you or your target is holding, and near your target."
