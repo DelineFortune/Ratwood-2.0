@@ -91,9 +91,13 @@
 		if(trait in H.dna.species.banned_traits)
 			continue
 		ADD_TRAIT(H, trait, ADVENTURER_TRAIT)
+	if(H.client && (HAS_TRAIT(H, TRAIT_MEDIUMARMOR) || HAS_TRAIT(H, TRAIT_HEAVYARMOR)))
+		H.def_intent_change(INTENT_PARRY)
 
 	if(noble_income)
+		var/already_has_income = (H in SStreasury.noble_incomes)
 		SStreasury.noble_incomes[H] = noble_income
+		SStreasury.grant_estate_income(H, noble_income, !already_has_income)
 
 	if(adaptive_name)
 		H.adaptive_name = TRUE
@@ -173,7 +177,7 @@
 	if(length(allowed_ages) && !(H.age in allowed_ages))
 		return FALSE
 
-	if(length(allowed_patrons) && !(H.patron in allowed_patrons))
+	if(length(allowed_patrons) && !(H.patron.type in allowed_patrons))
 		return FALSE
 
 	if(maximum_possible_slots > -1)

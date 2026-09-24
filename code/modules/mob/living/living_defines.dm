@@ -42,6 +42,9 @@
 
 	var/last_special = 0 //Used by the resist verb, likely used to prevent players from bypassing next_move by logging in/out.
 	var/timeofdeath = 0
+	var/last_logout_time = 0
+	var/disconnected_admin_alert_timer
+	var/disconnected_admin_alert_sent = FALSE
 
 	var/infected = FALSE //Used to tell if the mob is in progress of turning into deadite
 
@@ -103,7 +106,8 @@
 
 	var/stun_absorption = null //converted to a list of stun absorption sources this mob has when one is added
 
-	var/blood_volume = BLOOD_VOLUME_NORMAL //how much blood the mob has
+	/// How much blood the mob has. Use get_blood_volume()/set_blood_volume()/adjust_blood_volume().
+	VAR_PROTECTED/blood_volume = BLOOD_VOLUME_NORMAL
 
 	var/see_override = 0 //0 for no override, sets see_invisible = see_override in silicon & carbon life process via update_sight()
 
@@ -169,6 +173,26 @@
 
 	var/datum/component/personal_crafting/craftingthing
 
+	//-- Dodge variables
+	/// If this mob can parry at all
+	var/mob_can_parry = FALSE
+	/// Cooldown before it's possible to dodge again
+	COOLDOWN_DECLARE(last_dodge)
+	/// Amount of time added to the cooldown before the mob can dodge again
+	var/dodgetime = 1.2 SECONDS
+	/// Sanity boolean. Prevents you from dodging multiple times during a single loop. Not sure if this is actually needed but I aint touching it
+	var/dodge_sanity = FALSE
+
+	//-- Parry variables
+	/// If this mob can dodge at all
+	var/mob_can_dodge = FALSE
+	/// Cooldown before it's possible to parry again
+	COOLDOWN_DECLARE(last_parry)
+	/// Amount of time added to the cooldown before the mob can parry again
+	var/setparrytime = 1.2 SECONDS
+	/// Sound that plays when you parry unarmed
+	var/parry_sound = "unarmparry"
+
 	/// Cooldown when you break out of a grab before you can be grabbed again
 	COOLDOWN_DECLARE(broke_free)
 
@@ -222,3 +246,11 @@
 	var/pegleg = 0
 	var/construct = 0
 	var/burialrited = FALSE
+
+	/// Cache of client.prefs.no_redflash to reduce accesses (and client/prefs datum checking)
+	var/no_redflash = FALSE
+	// --- Fellowship (AP Quest 2 port) ---
+	var/datum/fellowship/current_fellowship
+	var/list/incoming_fellowship_invites = list() // list of /datum/weakref to /datum/fellowship; kept in sync with fellowship.pending_invites
+	/// List of enemies for the mob's AI
+	var/list/enemies = list()
