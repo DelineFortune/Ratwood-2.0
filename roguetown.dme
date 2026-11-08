@@ -3606,6 +3606,7 @@
 #include "modular\Neu_Food\code\recipes\stew_recipes.dm"
 #include "modular\Neu_Food\code\recipes\veggies_recipes.dm"
 #include "modular\origins\origins.dm"
+#include "modular\timesoldier\code\_defines.dm"
 #include "modular\timesoldier\code\adminstuff.dm"
 #include "modular\timesoldier\code\ammo.dm"
 #include "modular\timesoldier\code\clothing.dm"
@@ -3741,4 +3742,5 @@
 #include "modular_rmh\code\modules\mob\dead\body_markings\body_markings.dm"
 #include "modular_twilight_axis\code\game\objects\items\scabbard.dm"
 #include "modular_twilight_axis\code\modules\bildings\blueprint_planner.dm"
+#include "modular_twilight_axis\code\modules\structures\cannon.dm"
 // END_INCLUDE
