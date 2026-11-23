@@ -96,10 +96,8 @@
 	if(user.client?.prefs?.top_examine)
 		. += generate_main_examine_body(user, m1, m2, m3, obscure_name, race_name, observer_privilege, unknown_names)
 
-	if(user != src && unlocked_research_zizo_forbidden && HAS_TRAIT(src, TRAIT_CLERGYRADICAL))
-		var/datum/job/examiner_job = user.mind?.assigned_role
-		if(istype(examiner_job, /datum/job/roguetown/priest) || istype(examiner_job, /datum/job/roguetown/puritan))
-			. += span_warning("[m1] studying forbidden knowledge.")
+	if(user != src && HAS_TRAIT(user, TRAIT_DETECT_FORBIDDEN_RESEARCH) && HAS_TRAIT(src, TRAIT_CLERGYRADICAL) && HAS_TRAIT(src, TRAIT_FORBIDDEN_RESEARCH))
+		. += span_warning("[m1] studying forbidden knowledge.")
 
 	if(HAS_TRAIT(src, TRAIT_GNOLL_HUNTED) && ishuman(user) && istype(user, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = user

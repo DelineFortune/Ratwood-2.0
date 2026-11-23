@@ -40,6 +40,7 @@ GLOBAL_LIST_EMPTY(priest_swap_timers)
 	//No nobility for you, being a member of the clergy means you gave UP your nobility. It says this in many of the church tutorial texts.
 	quirk_restrictions = list(/datum/quirk/noble, /datum/quirk/hunted)
 	job_traits = list(
+		TRAIT_DETECT_FORBIDDEN_RESEARCH,
 		TRAIT_CHOSEN,
 		TRAIT_RITUALIST,
 		TRAIT_GRAVEROBBER,
