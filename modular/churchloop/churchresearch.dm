@@ -58,11 +58,14 @@
 	var/quest_reroll_last_ds = 0
 
 /mob/living/carbon/human/proc/set_radical_doctrine(enabled)
+	var/was_radical = HAS_TRAIT_FROM(src, TRAIT_CLERGYRADICAL, "job")
+	if(enabled == was_radical)
+		return
 	if(enabled)
 		ADD_TRAIT(src, TRAIT_CLERGYRADICAL, "job")
 		ADD_TRAIT(src, TRAIT_CRITICAL_WEAKNESS, TRAIT_CLERGYRADICAL)
-		change_stat(STATKEY_CON, -1, "radical_doctrine_con")
-		change_stat(STATKEY_WIL, 2, "radical_doctrine_wil")
+		change_stat(STATKEY_CON, -1)
+		change_stat(STATKEY_WIL, 2)
 		adjust_skillrank_down_to(/datum/skill/combat/wrestling, SKILL_LEVEL_APPRENTICE, TRUE)
 		adjust_skillrank_up_to(/datum/skill/combat/wrestling, SKILL_LEVEL_APPRENTICE, TRUE)
 		adjust_skillrank_down_to(/datum/skill/combat/unarmed, SKILL_LEVEL_APPRENTICE, TRUE)
@@ -70,8 +73,8 @@
 	else
 		REMOVE_TRAIT(src, TRAIT_CLERGYRADICAL, "job")
 		REMOVE_TRAIT(src, TRAIT_CRITICAL_WEAKNESS, TRAIT_CLERGYRADICAL)
-		change_stat(STATKEY_CON, 0, "radical_doctrine_con")
-		change_stat(STATKEY_WIL, 0, "radical_doctrine_wil")
+		change_stat(STATKEY_CON, 1)
+		change_stat(STATKEY_WIL, -2)
 
 var/global/list/divine_miracles_cache = list()
 var/global/list/inhumen_miracles_cache = list()
