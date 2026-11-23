@@ -96,7 +96,7 @@
 	if(user.client?.prefs?.top_examine)
 		. += generate_main_examine_body(user, m1, m2, m3, obscure_name, race_name, observer_privilege, unknown_names)
 
-	if(user != src && HAS_TRAIT(user, TRAIT_DETECT_FORBIDDEN_RESEARCH) && HAS_TRAIT(src, TRAIT_CLERGYRADICAL) && HAS_TRAIT(src, TRAIT_FORBIDDEN_RESEARCH))
+	if(user != src && (HAS_TRAIT(user, TRAIT_PURITAN) || HAS_TRAIT(user, TRAIT_CHOSEN)) && HAS_TRAIT(src, TRAIT_CLERGYRADICAL) && HAS_TRAIT(src, TRAIT_FORBIDDEN_RESEARCH))
 		. += span_warning("[m1] studying forbidden knowledge.")
 
 	if(HAS_TRAIT(src, TRAIT_GNOLL_HUNTED) && ishuman(user) && istype(user, /mob/living/carbon/human))

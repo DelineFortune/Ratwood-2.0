@@ -377,7 +377,6 @@
 #define TRAIT_NATURALARMOR "Tough Skin"
 #define TRAIT_CLERGYRADICAL "Radical member of Clergy"
 #define TRAIT_FORBIDDEN_RESEARCH "Forbidden research"
-#define TRAIT_DETECT_FORBIDDEN_RESEARCH "Detect forbidden research"
 #define TRAIT_ON_BOAT "on_boat"
 #define TRAIT_OAR "oar"
 #define TRAIT_OAR_PROPELLED "oar_propelled"
