@@ -30,7 +30,7 @@
 	if(!H || !H.mind || !H.patron)
 		return
 
-	REMOVE_TRAIT(H, TRAIT_CLERGYRADICAL, "job")
+	H.set_radical_doctrine(FALSE)
 	H.reset_clergy_devotion(CLERIC_T4, CLERIC_REGEN_MAJOR, TRUE, CLERIC_REQ_4)
 	if(!H.mind.has_spell(/obj/effect/proc_holder/spell/invoked/projectile/divineblast))
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/projectile/divineblast, H)
@@ -40,7 +40,7 @@
 	if(!H || !H.mind || !H.patron)
 		return
 
-	ADD_TRAIT(H, TRAIT_CLERGYRADICAL, "job")
+	H.set_radical_doctrine(TRUE)
 	H.miracle_points += 3
 	H.church_favor += 1600
 	H.reset_clergy_devotion(CLERIC_T4, CLERIC_REGEN_MAJOR, TRUE, CLERIC_REQ_4)

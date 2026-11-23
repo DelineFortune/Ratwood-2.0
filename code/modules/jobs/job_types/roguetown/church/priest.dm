@@ -188,7 +188,7 @@ GLOBAL_LIST_EMPTY(priest_swap_timers)
 /datum/job/roguetown/priest/proc/grant_old_path(mob/living/carbon/human/H)
 	if(!H || !H.mind || !H.patron)
 		return
-	REMOVE_TRAIT(H, TRAIT_CLERGYRADICAL, "job")
+	H.set_radical_doctrine(FALSE)
 	H.verbs -= /mob/living/carbon/human/proc/change_patron
 	H.reset_clergy_devotion(CLERIC_T4, CLERIC_REGEN_MAJOR, TRUE, CLERIC_REQ_4)
 	_pick_loyalist_miracles(H)
@@ -197,7 +197,7 @@ GLOBAL_LIST_EMPTY(priest_swap_timers)
 /datum/job/roguetown/priest/proc/grant_radical_path(mob/living/carbon/human/H)
 	if(!H || !H.mind || !H.patron)
 		return
-	ADD_TRAIT(H, TRAIT_CLERGYRADICAL, "job")
+	H.set_radical_doctrine(TRUE)
 	H.church_favor += 2400
 	H.miracle_points += 8
 	H.verbs |= /mob/living/carbon/human/proc/change_patron

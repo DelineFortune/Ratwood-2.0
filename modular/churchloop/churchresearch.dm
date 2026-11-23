@@ -57,6 +57,21 @@
 	var/quest_reroll_charges = 0
 	var/quest_reroll_last_ds = 0
 
+/mob/living/carbon/human/proc/set_radical_doctrine(enabled)
+	if(enabled)
+		ADD_TRAIT(src, TRAIT_CLERGYRADICAL, "job")
+		ADD_TRAIT(src, TRAIT_CRITICAL_WEAKNESS, TRAIT_CLERGYRADICAL)
+		change_stat(STATKEY_CON, -1, "radical_doctrine_con")
+		change_stat(STATKEY_WIL, 2, "radical_doctrine_wil")
+		// Recalculate existing skills under the radical cap.
+		adjust_experience(/datum/skill/combat/wrestling, 0, TRUE)
+		adjust_experience(/datum/skill/combat/unarmed, 0, TRUE)
+	else
+		REMOVE_TRAIT(src, TRAIT_CLERGYRADICAL, "job")
+		REMOVE_TRAIT(src, TRAIT_CRITICAL_WEAKNESS, TRAIT_CLERGYRADICAL)
+		change_stat(STATKEY_CON, 0, "radical_doctrine_con")
+		change_stat(STATKEY_WIL, 0, "radical_doctrine_wil")
+
 var/global/list/divine_miracles_cache = list()
 var/global/list/inhumen_miracles_cache = list()
 var/global/miracle_caches_built = FALSE
@@ -884,7 +899,7 @@ var/global/list/NOC_SECRET_MIRACLES = list(
 		html += "<span style='color:#7f8c8d'>Unlocked</span>"
 	html += "</td></tr>"
 
-	html += "<tr><td>Forbidden Knowledges of Zizo</td><td>[status_yn(H.unlocked_research_zizo_forbidden)]</td><td align='center'>"
+	html += "<tr><td>Knowledge of the Ascendents</td><td>[status_yn(H.unlocked_research_zizo_forbidden)]</td><td align='center'>"
 	if(!H.unlocked_research_zizo_forbidden)
 		if(H.church_favor >= RESEARCH_UNLOCK_FAVOR)
 			html += "<a href='?src=[REF(src)];unlockresearch=zizo'>Unlock ([RESEARCH_UNLOCK_FAVOR] Favor)</a>"
@@ -899,7 +914,7 @@ var/global/list/NOC_SECRET_MIRACLES = list(
 	var/list/rnav = list()
 	rnav += (src.current_research_tab == "pestra") ? "<b>Fleshcraft of Pestra</b>" : "<a href='?src=[REF(src)];researchtab=pestra'>Fleshcraft of Pestra</a>"
 	rnav += (src.current_research_tab == "malum") ? "<b>Craft of Malum</b>" : "<a href='?src=[REF(src)];researchtab=malum'>Craft of Malum</a>"
-	rnav += (src.current_research_tab == "zizo") ? "<b>Forbidden Knowledges of Zizo</b>" : "<a href='?src=[REF(src)];researchtab=zizo'>Forbidden Knowledges of Zizo</a>"
+	rnav += (src.current_research_tab == "zizo") ? "<b>Knowledge of the Ascendents</b>" : "<a href='?src=[REF(src)];researchtab=zizo'>Knowledge of the Ascendents</a>"
 	html += jointext(rnav, " | ")
 	html += "<hr>"
 
@@ -976,7 +991,7 @@ var/global/list/NOC_SECRET_MIRACLES = list(
 			html += "</table>"
 
 	else if(src.current_research_tab == "zizo")
-		html += "<b>Forbidden Knowledges of Zizo</b><br>"
+		html += "<b>Knowledge of the Ascendents</b><br>"
 		html += "Status: [status_yn(H.unlocked_research_zizo_forbidden)]<br><br>"
 
 		if(!H.unlocked_research_zizo_forbidden)

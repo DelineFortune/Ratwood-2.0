@@ -110,7 +110,7 @@
 	if(!H || !H.mind || !H.patron)
 		return
 
-	REMOVE_TRAIT(H, TRAIT_CLERGYRADICAL, "job")
+	H.set_radical_doctrine(FALSE)
 	H.reset_clergy_devotion(CLERIC_T4, CLERIC_REGEN_MAJOR, TRUE, CLERIC_REQ_4)
 	to_chat(H, span_notice("I remain on the old path of devotion."))
 
@@ -118,7 +118,7 @@
 	if(!H || !H.mind || !H.patron)
 		return
 
-	ADD_TRAIT(H, TRAIT_CLERGYRADICAL, "job")
+	H.set_radical_doctrine(TRUE)
 	H.miracle_points += 3
 	H.church_favor += 1600
 	H.reset_clergy_devotion(CLERIC_T4, CLERIC_REGEN_MAJOR, TRUE, CLERIC_REQ_4)
