@@ -63,9 +63,10 @@
 		ADD_TRAIT(src, TRAIT_CRITICAL_WEAKNESS, TRAIT_CLERGYRADICAL)
 		change_stat(STATKEY_CON, -1, "radical_doctrine_con")
 		change_stat(STATKEY_WIL, 2, "radical_doctrine_wil")
-		// Recalculate existing skills under the radical cap.
-		adjust_experience(/datum/skill/combat/wrestling, 0, TRUE)
-		adjust_experience(/datum/skill/combat/unarmed, 0, TRUE)
+		adjust_skillrank_down_to(/datum/skill/combat/wrestling, SKILL_LEVEL_APPRENTICE, TRUE)
+		adjust_skillrank_up_to(/datum/skill/combat/wrestling, SKILL_LEVEL_APPRENTICE, TRUE)
+		adjust_skillrank_down_to(/datum/skill/combat/unarmed, SKILL_LEVEL_APPRENTICE, TRUE)
+		adjust_skillrank_up_to(/datum/skill/combat/unarmed, SKILL_LEVEL_APPRENTICE, TRUE)
 	else
 		REMOVE_TRAIT(src, TRAIT_CLERGYRADICAL, "job")
 		REMOVE_TRAIT(src, TRAIT_CRITICAL_WEAKNESS, TRAIT_CLERGYRADICAL)

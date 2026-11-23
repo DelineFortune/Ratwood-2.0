@@ -86,9 +86,6 @@ GLOBAL_LIST_INIT(cross_training_map, list(
 	return sleep_exp[skill]
 
 /datum/sleep_adv/proc/adjust_sleep_xp(skill, adjust)
-	var/mob/living/L = mind.current
-	if(adjust > 0 && L.get_skill_level(skill) >= SKILL_LEVEL_APPRENTICE && L.ensure_skills().has_radical_combat_cap(GetSkillRef(skill)))
-		return
 	var/current_xp = get_sleep_xp(skill)
 	var/target_xp = current_xp + ((adjust > 0 && HAS_TRAIT(mind?.current, TRAIT_HUMEN_INGENUITY)) ? (adjust * 1.25) : adjust)
 	var/cap_exp = get_requried_sleep_xp_for_skill(skill, 2)
@@ -113,8 +110,6 @@ GLOBAL_LIST_INIT(cross_training_map, list(
 /datum/sleep_adv/proc/enough_sleep_xp_to_advance(skill_type, level_amount)
 	var/skill_level = mind.current.get_skill_level(skill_type)
 	if(skill_level == SKILL_LEVEL_LEGENDARY)
-		return FALSE
-	if(skill_level + level_amount > SKILL_LEVEL_APPRENTICE && mind.current.ensure_skills().has_radical_combat_cap(GetSkillRef(skill_type)))
 		return FALSE
 	var/needed_xp = get_requried_sleep_xp_for_skill(skill_type, level_amount)
 	if(get_sleep_xp(skill_type) < needed_xp)
@@ -146,8 +141,6 @@ GLOBAL_LIST_INIT(cross_training_map, list(
 				COOLDOWN_START(src, xp_show, XP_SHOW_COOLDOWN)
 		return
 	var/datum/skill/skillref = GetSkillRef(skill)
-	if(L.ensure_skills().has_radical_combat_cap(skillref) && L.get_skill_level(skill) >= SKILL_LEVEL_APPRENTICE)
-		return
 	var/trait_capped_level = skillref.max_untraited_level
 
 	#ifdef USES_TRAIT_SKILL_GATING

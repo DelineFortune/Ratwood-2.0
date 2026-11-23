@@ -79,14 +79,9 @@
 	UnregisterSignal(source, COMSIG_MIND_TRANSFER)
 	set_current(destination)
 
-/datum/skill_holder/proc/has_radical_combat_cap(datum/skill/skill_ref)
-	return current && HAS_TRAIT(current, TRAIT_CLERGYRADICAL) && (istype(skill_ref, /datum/skill/combat/wrestling) || istype(skill_ref, /datum/skill/combat/unarmed))
-
 /datum/skill_holder/proc/adjust_experience(skill, amt, silent = FALSE)
 	var/datum/skill/S = GetSkillRef(skill)
-	skill_experience[S] = max(0, skill_experience[S] + amt)
-	if(has_radical_combat_cap(S))
-		skill_experience[S] = min(skill_experience[S], SKILL_EXP_JOURNEYMAN - 1)
+	skill_experience[S] = max(0, skill_experience[S] + amt) //Prevent going below 0
 	var/old_level = known_skills[S]
 	switch(skill_experience[S])
 		if(SKILL_EXP_LEGENDARY to INFINITY)
@@ -200,9 +195,6 @@
 				amt2gain = 1
 			skill_experience[skill_ref] = amt2gain //Prevent going below 0
 
-	if(has_radical_combat_cap(skill_ref))
-		skill_experience[skill_ref] = min(skill_experience[skill_ref], SKILL_EXP_JOURNEYMAN - 1)
-
 	var/old_level = known_skills[skill_ref]
 	switch(skill_experience[skill_ref])
 		if(SKILL_EXP_LEGENDARY to INFINITY)
@@ -274,14 +266,10 @@
 			level += 1
 		if(istype(S, /datum/skill/misc/music) && HAS_TRAIT(current, TRAIT_XYLIX))
 			level += 1
-	if(has_radical_combat_cap(S))
-		return min(level, SKILL_LEVEL_APPRENTICE)
 	level = clamp(level, SKILL_LEVEL_NONE, SKILL_LEVEL_LEGENDARY)
 	return level
 
 /datum/skill_holder/proc/get_effective_skill_cap(datum/skill/skill_ref)
-	if(has_radical_combat_cap(skill_ref))
-		return SKILL_LEVEL_APPRENTICE
 	var/cap = skill_ref.max_untraited_level
 	#ifdef USES_TRAIT_SKILL_GATING
 	if(LAZYLEN(skill_ref.trait_uncap))
