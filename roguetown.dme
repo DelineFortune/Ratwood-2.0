@@ -11,6 +11,7 @@
 // END_PREFERENCES
 // BEGIN_INCLUDE
 #include "_maps\_basemap.dm"
+#include "_maps\map_files\generic\CentCom.dmm"
 #include "_maps\templates\arcyne_fortress.dm"
 #include "_maps\templates\bog_shack_small.dm"
 #include "_maps\templates\mirage_oasis.dm"
@@ -1929,7 +1930,7 @@
 #include "code\modules\events\god_intervention\astrata.dm"
 #include "code\modules\events\god_intervention\baotha.dm"
 #include "code\modules\events\god_intervention\dendor.dm"
-#include "code\modules\events\god_intervention\graggar.dm"
+#include "code\modules\events\god_intervention\Graggar.dm"
 #include "code\modules\events\god_intervention\malum.dm"
 #include "code\modules\events\god_intervention\matthios.dm"
 #include "code\modules\events\god_intervention\necra.dm"
@@ -3485,6 +3486,7 @@
 #include "interface\interface.dm"
 #include "interface\menu.dm"
 #include "interface\stylesheet.dm"
+#include "interface\skin.dmf"
 #include "modular\ambush\ambush_config\antlion_ambush.dm"
 #include "modular\ambush\ambush_config\bog_deserters_ambush.dm"
 #include "modular\ambush\ambush_config\dunewell_raiders_ambush.dm"
@@ -3831,6 +3833,4 @@
 #include "modular_twilight_axis\code\game\objects\items\scabbard.dm"
 #include "modular_twilight_axis\code\modules\bildings\blueprint_planner.dm"
 #include "modular_twilight_axis\code\modules\structures\cannon.dm"
-#include "interface\skin.dmf"
-#include "_maps\map_files\generic\CentCom.dmm"
 // END_INCLUDE
